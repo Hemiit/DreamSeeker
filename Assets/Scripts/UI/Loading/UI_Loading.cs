@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class UI_Loading : MonoBehaviour
 {
     public Button btn_Star;
-
+    
     public AnimStartButton animStartButton;
 
     public void Init() 
@@ -20,6 +20,8 @@ public class UI_Loading : MonoBehaviour
         {
             animStartButton.Hide();
             //TODO: Play the Animation function of open the eye.
+
+
         }); 
     }
 
