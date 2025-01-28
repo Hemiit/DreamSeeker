@@ -6,24 +6,28 @@ using UnityEngine.UI;
 public class UI_Loading : MonoBehaviour
 {
     public Button btn_Star;
-    
+
     public AnimStartButton animStartButton;
 
-    public void Init() 
+    public void Init()
     {
         Show();
 
         animStartButton.Init();
 
 
-        btn_Star.onClick.AddListener(() => 
+        btn_Star.onClick.AddListener(() =>
         {
-            Hide();
             animStartButton.Hide();
             //TODO: Play the Animation function of open the eye.
-            UIMgr.I.ui_Opening.PlayVideo();
-
-        }); 
+            //UIMgr.I.ui_Opening.PlayVideo();
+            SceneChanger.I.ChangeScene(
+                () => { Hide(); },
+                () => { GameMgr.I.lvl_01.Show(); },
+                1.5f,
+                10f
+                );
+        });
     }
 
 
