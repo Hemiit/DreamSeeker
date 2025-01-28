@@ -6,6 +6,7 @@ public class UIMgr : MonoBehaviour
 {
     public static UIMgr I;
     public UI_Loading ui_Loading;
+    public UI_Opening ui_Opening;
 
 
     private void Awake()
@@ -13,6 +14,7 @@ public class UIMgr : MonoBehaviour
         I = this;
 
         ui_Loading.Init();
+        ui_Opening.Init();
 
     }
 }
