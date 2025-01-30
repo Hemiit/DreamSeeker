@@ -8,14 +8,18 @@ public class UIMgr : MonoBehaviour
     public UI_Loading ui_Loading;
     public UI_Opening ui_Opening;
     public SceneChanger ui_SceneChanger;
+    public UI_Chatting ui_Chantting;
 
     private void Awake()
     {
         I = this;
 
+        UI_Chatting.I.Init();
         ui_Loading.Init();
         ui_Opening.Init();
         ui_SceneChanger.Init();
+
+
 
 
 
