@@ -14,11 +14,11 @@ public class UIMgr : MonoBehaviour
     {
         I = this;
 
-        UI_Chatting.I.Init();
+        
         ui_Loading.Init();
         ui_Opening.Init();
         ui_SceneChanger.Init();
-
+        ui_Chantting.Init();
 
 
 

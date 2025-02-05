@@ -18,15 +18,18 @@ public class UI_Loading : MonoBehaviour
 
         btn_Star.onClick.AddListener(() =>
         {
-            animStartButton.Hide();
+            //animStartButton.Hide();
+            Hide();
             //TODO: Play the Animation function of open the eye.
-            //UIMgr.I.ui_Opening.PlayVideo();
-            SceneChanger.I.ChangeScene(
-                () => { Hide(); },
-                () => { GameMgr.I.lvl_01.Show(); },
-                1.5f,
-                10f
-                );
+            UIMgr.I.ui_Opening.PlayVideo();
+            
+
+            //SceneChanger.I.ChangeScene(
+            //    () => { Hide(); },
+            //    () => { GameMgr.I.lvl_01.Show(); },
+            //    1.5f,
+            //    2f
+            //    );
         });
     }
 

@@ -14,16 +14,19 @@ public class UI_Chatting : MonoBehaviour
     public Button btn;
     private bool isFinished = true;
 
-    public void Init() 
+    public void Init()
     {
         I = this;
 
+        TryGetComponent<TMP_Text>(out m_text);
+        
+        Hide();
     }
 
 
     private void Awake()
     {
-        TryGetComponent<TMP_Text>(out m_text);
+        
     }
     private void Start()
     {
@@ -31,6 +34,12 @@ public class UI_Chatting : MonoBehaviour
         {
             PlayOneLineInTyping();
         });
+    }
+
+    public void Show() { }
+    public void Hide()
+    {
+        gameObject.SetActive(false);
     }
 
     private void PlayOneLineInTyping()
