@@ -33,6 +33,7 @@ public class PlayerMove : MonoBehaviour
     }
     private void CheckGround()
     {
+        
         Collider2D collider = Physics2D.OverlapBox(transform.position, new Vector2(1, 1), 0, LayerMask.GetMask("Terrain"));
         if (collider != null)//<-- We got the Terrain.
         {
