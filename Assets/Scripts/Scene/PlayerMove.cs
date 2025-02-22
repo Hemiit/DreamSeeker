@@ -5,9 +5,14 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    public float jumpForce = 10f;
-    public  bool isGrounded;
+    public float jumpForce = 5f;
+    public float jumpForceEx = 10f;
+
+    public bool isGrounded;
+    public bool isGroundedEx;
+
     private Rigidbody2D rb;
+    private bool isFull = false;
 
     void Start()
     {
@@ -30,20 +35,55 @@ public class PlayerMove : MonoBehaviour
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
+        // JumpEx
+        if (isGroundedEx && Input.GetButtonDown("Jump"))
+        {
+            rb.AddForce(Vector2.up * jumpForceEx, ForceMode2D.Impulse);
+        }
     }
     private void CheckGround()
     {
-        
         Collider2D collider = Physics2D.OverlapBox(transform.position, new Vector2(1, 1), 0, LayerMask.GetMask("Terrain"));
         if (collider != null)//<-- We got the Terrain.
         {
             isGrounded = true;
+            //isGroundedEx = false;
         }
         else
         {
             isGrounded = false;
+            //isGroundedEx = false;
+        }
+
+        Collider2D colliderEx = Physics2D.OverlapBox(transform.position, new Vector2(1, 1), 0, LayerMask.GetMask("TerrainEx"));
+        if (colliderEx != null)//<-- We got the Terrain.
+        {
+            isGroundedEx = true;
+            //isGrounded = false;
+        }
+        else
+        {
+            isGroundedEx = false;
+            //isGrounded = false;
+        }
+
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "Stressor")
+        {
+            if (isFull)
+            {
+
+            }
+            else
+            {
+                print("Seeker is dead.");
+            }
         }
     }
+
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position, new Vector2(1, 1));
