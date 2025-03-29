@@ -14,6 +14,9 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody2D rb;
     private bool isFull = false;
 
+    public GameObject partMoon;
+    public GameObject fullMoon;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -69,6 +72,25 @@ public class PlayerMove : MonoBehaviour
 
     }
 
+    public void FullMoon() 
+    {
+        fullMoon.SetActive(true);
+        partMoon.SetActive(false);
+    }
+    public void PartMoon() 
+    {
+        fullMoon.SetActive(true);
+        partMoon.SetActive(false);
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "SwiftColli") 
+        {
+            GameMgr.I.lvl_01.ShowCollider();
+            collision.gameObject.SetActive(false);  
+        }
+    }
     public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.transform.tag == "Stressor")
