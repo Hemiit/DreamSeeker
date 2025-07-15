@@ -17,6 +17,9 @@ public class PlayerMove : MonoBehaviour
     public GameObject partMoon;
     public GameObject fullMoon;
 
+    bool canAbsorb;
+    GameObject currtSmallBall;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -42,6 +45,13 @@ public class PlayerMove : MonoBehaviour
         if (isGroundedEx && Input.GetButtonDown("Jump"))
         {
             rb.AddForce(Vector2.up * jumpForceEx, ForceMode2D.Impulse);
+        }
+
+        //When want to absorb small ball to become a full moon.
+        if (Input.GetKeyUp(KeyCode.E)&& canAbsorb) 
+        {
+            FullMoon();
+            currtSmallBall?.SetActive(false);
         }
     }
     private void CheckGround()
@@ -76,6 +86,7 @@ public class PlayerMove : MonoBehaviour
     {
         fullMoon.SetActive(true);
         partMoon.SetActive(false);
+        canAbsorb = false;
     }
     public void PartMoon() 
     {
@@ -89,6 +100,24 @@ public class PlayerMove : MonoBehaviour
         {
             GameMgr.I.lvl_01.ShowCollider();
             collision.gameObject.SetActive(false);  
+        }
+
+        if (collision.tag == "SmallBall") 
+        {
+            //Play anim of full moon directrly?
+            //Currently, I want to give the player an option.
+            collision.GetComponent<SmallBall>().ShowPnlImg();
+            currtSmallBall = collision.gameObject;
+            canAbsorb = true;
+        }
+    }
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "SmallBall")
+        {
+            collision.GetComponent<SmallBall>().HidePnlImg();
+            currtSmallBall = null;
+            canAbsorb = false;
         }
     }
     public void OnCollisionEnter2D(Collision2D collision)
