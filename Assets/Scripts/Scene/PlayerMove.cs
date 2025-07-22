@@ -37,18 +37,18 @@ public class PlayerMove : MonoBehaviour
         transform.Translate(movement);
 
         // Jump
-        if (isGrounded && Input.GetButtonDown("Jump"))
+        if (isGrounded && Input.GetKeyDown(KeyCode.W))
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
         // JumpEx
-        if (isGroundedEx && Input.GetButtonDown("Jump"))
+        if (isGroundedEx && Input.GetKeyDown(KeyCode.W))
         {
             rb.AddForce(Vector2.up * jumpForceEx, ForceMode2D.Impulse);
         }
 
         //When want to absorb small ball to become a full moon.
-        if (Input.GetKeyUp(KeyCode.E)&& canAbsorb) 
+        if (Input.GetKeyUp(KeyCode.F)&& canAbsorb) 
         {
             FullMoon();
             currtSmallBall?.SetActive(false);
