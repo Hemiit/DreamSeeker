@@ -23,6 +23,12 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        GameMgr.I.player.gameObject.SetActive(false);
+    }
+
+    public void SetPosition(Vector2 pos) 
+    {
+        this.transform.localPosition = new Vector2(pos.x,pos.y);
     }
 
     void Update()
@@ -56,7 +62,7 @@ public class PlayerMove : MonoBehaviour
     }
     private void CheckGround()
     {
-        Collider2D collider = Physics2D.OverlapBox(transform.position, new Vector2(1, 1), 0, LayerMask.GetMask("Terrain"));
+        Collider2D collider = Physics2D.OverlapBox(transform.position, new Vector2(0.2f, 1f), 0, LayerMask.GetMask("Terrain"));
         if (collider != null)//<-- We got the Terrain.
         {
             isGrounded = true;

@@ -32,6 +32,9 @@ public class UI_Loading : MonoBehaviour
                 0.1f
                 );
         });
+
+        GameMgr.I.player.SetPosition(GameMgr.I.lvl_01.spwanPoint);
+        GameMgr.I.player.gameObject.SetActive(true);
     }
 
 
