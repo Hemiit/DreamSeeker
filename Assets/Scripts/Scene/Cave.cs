@@ -11,20 +11,30 @@ public class Cave : MonoBehaviour
     public SpriteRenderer inside2;
     public SpriteRenderer inside3;
     public SpriteRenderer inside4;
+    public SpriteRenderer brush_Small;
+    public ParticleSystem ps_Flash;
 
+    Color TransparentColor = new Color(1, 1, 1, 0);
 
     public void Init()
     {
         Hide();
-        FadeOutGirlImages();
+        FadeOutGirlStatuary();
+        brush_Small.color = TransparentColor;
+        brush_Small.gameObject.SetActive(false);
+        ps_Flash.gameObject.SetActive(false);
     }
 
-    public void Show() { this.gameObject.SetActive(true); }
+    public void Show()
+    {
+        GameMgr.I.player.transform.localPosition = spwanPoint;
+        this.gameObject.SetActive(true);
+    }
     public void Hide() { this.gameObject.SetActive(false); }
 
-    public void FadeOutGirlImages()
+    public void FadeOutGirlStatuary()
     {
-        var TransparentColor = new Color(1, 1, 1, 0);
+        //var TransparentColor = new Color(1, 1, 1, 0);
         //inside1.color = TransparentColor;
         inside2.color = TransparentColor;
         inside3.color = TransparentColor;
@@ -32,22 +42,30 @@ public class Cave : MonoBehaviour
 
     }
 
-    //Waiting the 
     public void AnimShowCollapseGirlStatuary()
     {
         DOTween.Sequence()
             .Append(inside1.DOFade(0, 0.5f))
-            .Join(inside2.DOFade(1, 0.5f))
-            .AppendInterval(0.5f)
+            .Join(inside2.DOFade(1, 1f))
+            .Join(Camera.main.DOShakePosition(1f, 0.2f, 10))
+            .AppendInterval(1f)
 
             .Append(inside2.DOFade(0, 0.5f))
-            .Join(inside3.DOFade(1, 0.5f))
-            .AppendInterval(0.5f)
+            .Join(inside3.DOFade(1, 1f))
+            .Join(Camera.main.DOShakePosition(1f, 0.2f, 10))
+            .AppendInterval(1f)
 
             .Append(inside3.DOFade(0, 0.5f))
-            .Join(inside4.DOFade(1, 0.5f));
+            .Join(inside4.DOFade(1, 1f))
+            .Join(Camera.main.DOShakePosition(1f, 0.2f, 10))
+            .AppendCallback(() =>
+            {
+                ps_Flash.gameObject.SetActive(true);
+                brush_Small.gameObject.SetActive(true);
+                brush_Small.DOFade(1f, 0.5f);
+            })
+            ;
     }
-
 
     // Start is called before the first frame update
     void Start()

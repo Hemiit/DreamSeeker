@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -18,6 +19,7 @@ public class PlayerMove : MonoBehaviour
     public GameObject fullMoon;
 
     bool canAbsorb;
+    bool canMove = true;
     GameObject currtSmallBall;
 
     void Start()
@@ -26,10 +28,11 @@ public class PlayerMove : MonoBehaviour
         GameMgr.I.player.gameObject.SetActive(false);
     }
 
-    public void SetPosition(Vector2 pos) 
+    public void SetPosition(Vector2 pos)
     {
-        this.transform.localPosition = new Vector2(pos.x,pos.y);
+        this.transform.localPosition = new Vector2(pos.x, pos.y);
     }
+    public void SetMove(bool value) { canMove = value; }
 
     void Update()
     {
@@ -37,10 +40,13 @@ public class PlayerMove : MonoBehaviour
         CheckGround();
 
         // Move the character
-        float horizontalInput = Input.GetAxis("Horizontal");
-        //float verticalInput = Input.GetAxis("Vertical");wswsaa
-        Vector2 movement = new Vector2(horizontalInput, 0f /*verticalInput*/ ) * moveSpeed * Time.deltaTime;
-        transform.Translate(movement);
+        if (canMove) 
+        {
+            float horizontalInput = Input.GetAxis("Horizontal");
+            //float verticalInput = Input.GetAxis("Vertical");wswsaa
+            Vector2 movement = new Vector2(horizontalInput, 0f /*verticalInput*/ ) * moveSpeed * Time.deltaTime;
+            transform.Translate(movement);
+        }
 
         // Jump
         if (isGrounded && Input.GetKeyDown(KeyCode.W))
@@ -54,7 +60,7 @@ public class PlayerMove : MonoBehaviour
         }
 
         //When want to absorb small ball to become a full moon.
-        if (Input.GetKeyUp(KeyCode.F)&& canAbsorb) 
+        if (Input.GetKeyUp(KeyCode.F) && canAbsorb)
         {
             FullMoon();
             currtSmallBall?.SetActive(false);
@@ -88,13 +94,13 @@ public class PlayerMove : MonoBehaviour
 
     }
 
-    public void FullMoon() 
+    public void FullMoon()
     {
         fullMoon.SetActive(true);
         partMoon.SetActive(false);
         canAbsorb = false;
     }
-    public void PartMoon() 
+    public void PartMoon()
     {
         fullMoon.SetActive(true);
         partMoon.SetActive(false);
@@ -102,13 +108,13 @@ public class PlayerMove : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "SwiftColli") 
+        if (collision.gameObject.name == "SwiftColli")
         {
             GameMgr.I.lvl_01.ShowCollider();
-            collision.gameObject.SetActive(false);  
+            collision.gameObject.SetActive(false);
         }
 
-        if (collision.tag == "SmallBall") 
+        if (collision.tag == "SmallBall")
         {
             //Play anim of full moon directrly?
             //Currently, I want to give the player an option.
