@@ -12,7 +12,11 @@ public class EntranceToCave : MonoBehaviour
             print("Enter Cave.");
             SceneChanger.I.ChangeScene(
                 () => { GameMgr.I.lvl_01.Hide(); },
-                () => { GameMgr.I.cave.Show(); },
+                () => 
+                { 
+                    GameMgr.I.cave.Show();
+                    UIMgr.I.ui_Cave.Show();
+                },
                 0.5f,
                 0.1f
                 );

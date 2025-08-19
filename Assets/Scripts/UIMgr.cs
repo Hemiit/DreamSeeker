@@ -9,6 +9,9 @@ public class UIMgr : MonoBehaviour
     public UI_Opening ui_Opening;
     public SceneChanger ui_SceneChanger;
     public UI_Chatting ui_Chantting;
+    public UI_Cave ui_Cave;
+
+
 
     private void Awake()
     {
@@ -19,7 +22,7 @@ public class UIMgr : MonoBehaviour
         ui_Opening.Init();
         ui_SceneChanger.Init();
         ui_Chantting.Init();
-
+        ui_Cave.Init();
 
 
 

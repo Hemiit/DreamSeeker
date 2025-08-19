@@ -24,7 +24,12 @@ public class Cave : MonoBehaviour
         brush_Small.gameObject.SetActive(false);
         ps_Flash.gameObject.SetActive(false);
     }
-
+    public void Anim_PickUpBrush()
+    {
+        DOTween.Sequence()
+            .Append(brush_Small.transform.DOLocalMove(new Vector2(-2.39f,-4.51f),1f));
+        //TODO:shrinp the brush and shut off the particle.
+    }
     public void Show()
     {
         GameMgr.I.player.transform.localPosition = spwanPoint;
