@@ -27,7 +27,15 @@ public class Cave : MonoBehaviour
     public void Anim_PickUpBrush()
     {
         DOTween.Sequence()
-            .Append(brush_Small.transform.DOLocalMove(new Vector2(-2.39f,-4.51f),1f));
+            .Append(brush_Small.DOFade(0f,0.3f))
+            .AppendCallback(() => 
+            {
+                brush_Small.gameObject.SetActive(false);
+
+                UIMgr.I.ui_Cave.ShowBigBrush();
+            });
+            
+
         //TODO:shrinp the brush and shut off the particle.
     }
     public void Show()
